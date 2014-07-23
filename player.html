@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RTMP Player</title>
+    <script type="text/javascript" src="swfobject.js"></script>
+    <script type="text/javascript">
+        var flashVars = {
+            streamer: 'rtmp://192.168.0.100:1935/live',
+            file:'dron'
+        };
+        var params = {};
+        params.allowfullscreen = "true";
+        var attributes = {};
+        swfobject.embedSWF("RtmpPlayer.swf", "rtmp-publisher", "640", "480", "9.0.0", null, flashVars, params, attributes);
+
+        window.onkeydown = function(e) {
+            e.preventDefault();
+            console.log(e.keyCode);
+            var command = "";
+            switch(e.keyCode) {
+                case 37 :
+                    command = "VK_LEFT";
+                    break;
+                case 38 :
+                    command = "VK_UP";
+                    break;
+                case 39 :
+                    command = "VK_RIGHT";
+                    break;
+                case 40 :
+                    command = "VK_DOWN";
+                    break;
+                case 13 :
+                    command = "VK_ENTER";
+                    break;
+                case 32 :
+                    command = "VK_SPACE";
+                    break;
+                case 27 :
+                    command = "VK_ESCAPE";
+                    break;
+                case 90 :
+                    command = "VK_Z";
+                    break;
+                case 82 :
+                    command = "VK_R";
+                    break;
+                case 76 : 
+                    command = "VK_L";
+                    break;
+                case 87 : 
+                    command = "VK_W";
+                    break;
+                case 83 : 
+                    command = "VK_S";
+                    break;
+                case 81 : 
+                    command = "VK_Q";
+                    break;
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET","http://192.168.0.100:8080/Ardrone/net?command=" + command);
+            xhr.send();
+        }
+    </script>
+    <style type="text/css">
+        body {
+            height: 2000px;
+        }
+    </style>
+</head>
+<body>
+    <div id="rtmp-publisher">
+        <p>Flash not installed</p>
+    </div>
+</body>
+</html>
